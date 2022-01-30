@@ -9,26 +9,37 @@ import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    /*CommnetAdapter adapter;*/
+    CommentAdapter adapter;
 
     Button likeButton;
     Button UnlikeButton;
     TextView likeCountView;
     TextView UnlikeCountView;
 
-    int likeCount =0;
+    int likeCount =15;
     boolean likeState = false;
 
-    int UnlikeCount =0;
+    int UnlikeCount =1;
     boolean UnlikeState = false;
 
     EditText editText;
     EditText editText2;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +61,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(likeState){
-                    decrLikeCount();
+                   decrLikeCount();
+                }else if(UnlikeState == true){
+                    decrUnLikeCount();
+                    UnlikeState = ! UnlikeState;
+                    incrLikeCount();
                 }else {
                     incrLikeCount();
                 }
@@ -63,15 +78,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(UnlikeState){
                     decrUnLikeCount();
-                }else if(likeState ==true &&UnlikeState ==false){
+                }else if(likeState ==true){
                     decrLikeCount();
+                    likeState = ! likeState;
                     incrUnLikeCount();
-
-                    UnlikeState = ! UnlikeState;
                 }else {
                     incrUnLikeCount();
 
+
                 }
+                UnlikeState = ! UnlikeState;
 
             }
         });
@@ -96,8 +112,81 @@ public class MainActivity extends AppCompatActivity {
             spannableString.setSpan(new RelativeSizeSpan(1.1f), start, end, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
+        ListView listView = (ListView) findViewById(R.id.listView);
+
+        adapter = new CommentAdapter();
+
+
+        adapter.addItem(new CommentItem("kym71**","적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.",R.drawable.user1));
+        adapter.addItem(new CommentItem("kym71**","적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.",R.drawable.user1));
+
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CommentItem item = (CommentItem) adapter.getItem(position);
+                Toast.makeText(getApplicationContext(),"선택 : " + item.getName(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        Button AllButton = (Button) findViewById(R.id.AllButton);
+        AllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getApplicationContext(),"버튼이 눌렀음",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
         function_text.setText(spannableString);
     }
+
+    class CommentAdapter extends BaseAdapter {
+        ArrayList<CommentItem> items = new ArrayList<CommentItem>();
+
+        @Override
+        public int getCount(){
+            return items.size();
+        }
+
+
+        public void addItem(CommentItem item){
+            items.add(item);
+        }
+
+        @Override
+        public Object getItem(int position){
+            return items.get(position);
+        }
+
+        @Override
+        public long getItemId(int position){
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent){
+            CommentItemView view = null;
+            if(convertView == null){
+                view = new CommentItemView(getApplicationContext());
+            }else {
+                view = (CommentItemView) convertView;
+            }
+            CommentItem item = items.get(position);
+            view.setId(item.getName());
+            view.setComment(item.getComment());
+            view.setImageView(item.getResId());
+
+            return view;
+        }
+
+    }
+
 
     public void incrLikeCount(){
         likeCount +=1;
