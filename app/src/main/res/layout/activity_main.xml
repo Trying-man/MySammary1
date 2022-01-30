@@ -68,7 +68,7 @@
                     android:layout_height="38dp">
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/likeButton"
                         android:layout_width="31dp"
                         android:layout_height="21dp"
                         android:layout_marginTop="5dp"
@@ -77,18 +77,19 @@
                         app:backgroundTintMode="add" />
 
                     <TextView
+                        android:id="@+id/likeCountView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
 
-                        android:text="15"
+                        android:text="0"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
                     <Button
-                        android:id="@+id/button3"
+                        android:id="@+id/UnlikeButton"
                         android:layout_width="31dp"
                         android:layout_height="21dp"
                         android:layout_marginLeft="10dp"
@@ -98,12 +99,13 @@
                         app:backgroundTintMode="add" />
 
                     <TextView
+                        android:id="@+id/UnlikeCountView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
-                        android:text="1"
+                        android:text="0"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
