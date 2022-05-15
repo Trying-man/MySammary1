@@ -1,7 +1,9 @@
 package com.example.mysammary1;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -15,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     Button likeButton;
     Button UnlikeButton;
+    Button WriteButton;
+    Button CommentTotalButton;
     TextView likeCountView;
     TextView UnlikeCountView;
+
+    //RatingBar ratingBar;
 
     int likeCount =15;
     boolean likeState = false;
@@ -56,6 +63,20 @@ public class MainActivity extends AppCompatActivity {
 
         UnlikeButton = (Button) findViewById(R.id.UnlikeButton);
         UnlikeCountView = (TextView) findViewById(R.id.UnlikeCountView);
+
+        WriteButton = (Button) findViewById(R.id.WriteButton);
+        WriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCommentWrite();
+            }
+        });
+
+
+
+
+
+
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 
 
@@ -138,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast.makeText(getApplicationContext(),"버튼이 눌렀음",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), CommentTotal.class);
             }
         });
 
@@ -217,5 +241,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void showCommentWrite(){
+        //float rating = ratingBar.getRating();
 
+        Intent intent = new Intent(getApplicationContext(), CommentWrite.class);
+        //intent.putExtra("rating",rating);
+        startActivityForResult(intent,101);
+    }
+
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if(requestCode == 101){
+            if(intent != null){
+                String contents = intent.getStringExtra("contents");
+
+            }
+        }
+
+    }
 }

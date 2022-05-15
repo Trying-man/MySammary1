@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 public class CommentItemView extends LinearLayout {
     TextView textId;
-    TextView textView2;
+    TextView outputView;
     ImageView imageView;
 
     public CommentItemView(Context context) {
@@ -31,7 +31,7 @@ public class CommentItemView extends LinearLayout {
         inflater.inflate(R.layout.comment_item_view, this, true);
 
         textId = (TextView) findViewById(R.id.textId);
-        textView2 = (TextView) findViewById(R.id.textView2);
+        outputView = (TextView) findViewById(R.id.outputView);
         imageView = (ImageView) findViewById(R.id.imageView);
     }
 
@@ -41,7 +41,7 @@ public class CommentItemView extends LinearLayout {
     }
 
     public void setComment(String comment) {
-        textView2.setText(comment);
+        outputView.setText(comment);
     }
 
     public void setImageView(int resId) {
