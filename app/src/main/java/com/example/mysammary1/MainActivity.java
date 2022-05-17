@@ -74,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         adapter.addItem(new CommentItem("kym71**","적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.",R.drawable.user1));
-        adapter.addItem(new CommentItem("kym71**","적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요.",R.drawable.user1));
+        adapter.addItem(new CommentItem("kym71**","적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요2.",R.drawable.user1));
 
 
         listView.setAdapter(adapter);
@@ -160,8 +156,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(),"버튼이 눌렀음",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), CommentTotal.class);
+                //Toast.makeText(getApplicationContext(),"버튼이 눌렀음",Toast.LENGTH_LONG).show();
+                //Intent intent = new Intent(getApplicationContext(), CommentTotal.class);
+                showCommentTotal();
+
             }
         });
 
@@ -247,6 +245,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), CommentWrite.class);
         //intent.putExtra("rating",rating);
         startActivityForResult(intent,101);
+    }
+
+    public void showCommentTotal(){
+        Intent intent = new Intent(getApplicationContext(), CommentTotal.class);
+        startActivityForResult(intent,101);
+
     }
 
 
